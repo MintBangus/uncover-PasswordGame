@@ -1,0 +1,164 @@
+#include <string>
+#include <string_view>
+#include <iostream>
+
+void disPlayComm()
+{
+    std::cout << "\"halp\" - displays available commands" << '\n' << "\"logs\" - displays accessible logs" << '\n';
+    std::cout << "\"password\" - allows for password input" << '\n' << "[log name] \"hack\" - opens mentioned log" << '\n';
+    std::cout << "[log name] \"return\" - exits mentioned log" << '\n' << '\n';
+}
+
+void disPlayLogs()
+{
+    std::cout << ">--Oct3" << '\n' << "   " << "October the third" << '\n' << '\n';
+    std::cout << ">--Oct5" << '\n' << "   " << "October the fifth" << '\n' << '\n';
+    std::cout << ">--Oct7" << '\n' << "   " << "October the seventh" << '\n' << '\n';
+    std::cout << ">--Oct9" << '\n' << "   " << "October the ninth" << '\n' << '\n' << '\n';
+}
+
+void oct3()
+{
+    std::cout << "<--Oct3" << '\n' << "   " << "October the third" << '\n' << '\n';
+    std::cout << '\t' << "The password is so overcomplicated. I've set it to the first name of the number squence \"6.0221408e+23\"." << '\n' << '\n';
+}
+void oct5()
+{
+    std::cout << "<--Oct5" << '\n' << "   " << "October the fifth" << '\n' << '\n';
+    std::cout << '\t' << "Who changed the password? Please don't mess with the system. The new password is considerably weaker than \"1234PASSWORD\"." << '\n';
+    std::cout << '\t' << "I've taken the liberty of converting the last two letters of the current password into binary." << '\n';
+    std::cout << '\t' << "To everyone else, please don't edit the password further." << '\n' << '\n';
+}
+void oct7()
+{
+    std::cout << "<--Oct7" << '\n' << "   " << "October the seventh" << '\n' << '\n';
+    std::cout << '\t' << "It's still too easy! I've added just the first three numbers of Pi to the front of the current password." << '\n';
+    std::cout << '\t' << "(because that seems to be the only universally known number squence)." << '\n' << '\n';
+}
+
+void oct9()
+{
+    std::cout << "<--Oct9" << '\n' << "   " << "October the ninth" << '\n' << '\n';
+    std::cout << '\t' << "Quit it with the puzzles. I've set all of the letters in the current password into uppercase" << '\n';
+    std::cout << '\t' << "because they were in lowercase before, and I've also removed everyone else's admin powers. Get back to work. All of you." << '\n' << '\n';
+}
+
+int callLog(std::string_view commIn)
+{
+    std::string hackFall{};
+    std::cin >> hackFall;
+
+    if(hackFall == "hack")
+    {
+        if(commIn == "Oct3")
+        {
+            oct3();
+
+            return 53;
+        }
+        if(commIn == "Oct5")
+        {
+            oct5();
+
+            return 55;
+        }
+        if(commIn == "Oct7")
+        {
+            oct7();
+
+            return 57;
+        }
+        if(commIn == "Oct9")
+        {
+            oct9();
+
+            return 59;
+        }
+    } else {
+        return 66;
+    }
+}
+
+int returnLog(int winIn)
+{
+    std::string returnFall{};
+    std::cin >> returnFall;
+
+    if(returnFall == "return")
+    {
+        return 66;
+    } else {
+        return winIn;
+    }
+}
+
+int analyzePass()
+{
+    std::string passFall{};
+    std::cin >> passFall;
+
+    if(passFall == "314AVOGAD0111001001101111")
+    {
+        return 99;
+    } else {
+        std::cout << "Incorrect!" << '\n';
+        return 66;
+    }
+}
+
+int main()
+{
+    //ask for name
+    std::cout << "Perhaps an alias is in order?" << '\n';
+    std::string nameIn{};
+    std::getline(std::cin >> std::ws, nameIn);
+
+    int winIn{ 66 };
+
+    //display commands
+    std::cout << "\"halp\" - displays available commands" << '\n' << "\"logs\" - displays accessible logs" << '\n';
+    std::cout << "[log date] \"hack\" - opens mentioned log" << '\n' << "[log date] \"return\" - exits mentioned log" << '\n';
+    std::cout << "\"password\" - allows for password input" << '\n' << '\n';
+
+    std::string commIn{};
+
+    //take commands
+    while(winIn != 99)
+    {
+        std::cin >> commIn;
+
+        if(commIn == "halp" && winIn == 66)
+        {
+            disPlayComm();
+        }
+        if(commIn == "logs" && winIn == 66)
+        {
+            disPlayLogs();
+        }
+        if( (commIn == "Oct3" && winIn == 66) || (commIn == "Oct5" && winIn == 66) || (commIn == "Oct7" && winIn == 66) || (commIn == "Oct9" && winIn == 66) )
+        {
+            winIn = callLog(commIn);
+
+        }
+        if( (commIn == "Oct3" && winIn == 53) || (commIn == "Oct5" && winIn == 55) || (commIn == "Oct7" && winIn == 57) || (commIn == "Oct9" && winIn == 59) )
+        {
+            winIn = returnLog(winIn);
+
+        }
+        if(commIn == "password")
+        {
+            winIn = analyzePass();
+        }
+
+        commIn = "nothIn";
+    }
+
+    if(winIn == 99)
+    {
+        std::cout << "Logging in..." << '\n';
+        std::cout << "Welcome, " << nameIn << "!";
+
+        return 0;
+    }
+
+}
